@@ -32,12 +32,12 @@ class loginWindow:
             self.ICONIMG = tk.Image('photo', file=self.ICON)
             self.root.tk.call('wm', 'iconphoto', self.root._w, self.ICONIMG)
         elif sys.platform.lower() == 'win32':
-            self.ICON = os.path.join(FILE_PATH, 'assets', 'icon.ico')
             self.root.iconbitmap(self.ICON.replace('.png', '.ico'))
             self.HEIGHT, self.WIDTH = 626, 299
             self.MIN_HEIGHT, self.MIN_WIDTH = 626, 299
-        else: 
-            self.root.iconbitmap(self.ICON.replace('.png', '.xbm'))
+        else:
+            pass 
+            #self.root.iconbitmap(self.ICON.replace('.png', '.xbm'))
         
         self.root.resizable(False,False)
     

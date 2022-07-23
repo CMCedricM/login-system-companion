@@ -89,6 +89,8 @@ class loginWindow:
         self.passEntry.delete(0, tk.END)
         res, text = createUser(self.userValue, self.passValue)
         if(res): 
+            # For Now We Are Connecting the Login Screen to the Signup Endpoint, 
+            # until i modify the server to allow for login from this companion app
             print("User Created")
         else: 
             print(f"Error: {text}")

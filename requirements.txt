@@ -1,0 +1,2 @@
+requests==2.28.1
+pipreqs==0.4.11

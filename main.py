@@ -3,6 +3,8 @@ import tkinter as tk
 from resources.web import createUser, loginUser
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
+WAIT_TIME = 5 * 1000 # Check Every 5 Seconds
+TIMEOUT = 30*1000 # Wait 30 seconds
 
 class loginWindow: 
     def __init__(self): 
@@ -80,8 +82,26 @@ class loginWindow:
        
         
         tk.Button(self.root, text="Login", pady=20, padx=20, height=1, width=8, command=self.attemptLogin, anchor='center').grid(row=5, column=2, columnspan=2)
-  
     
+        # Set a timer to check if the user has input any data
+        self.checkForInputTimer()
+        
+    # The trick is we want to wait for input before we create the timeout to clear the data
+    def checkForInputTimer(self): 
+       # If there is data input then give the user an additonal TIMEOUT seconds to finish input
+        if(self.userEntry.get() != '' or self.passEntry.get() != ''): 
+            self.passEntry.after(TIMEOUT, self.clearInput)
+        else:  # If there is no data, continue checking every WAIT_TIME secs for input
+            self.passEntry.after(WAIT_TIME, self.checkForInputTimer)
+        
+    def clearInput(self): 
+        # If there is data, then clear input
+        self.userEntry.delete(0, tk.END)
+        self.passEntry.delete(0, tk.END)
+        # Keep Checking For Input
+        self.checkForInputTimer() 
+        
+            
         
     def attemptLogin(self):
        self.userValue = self.userEntry.get()
@@ -99,8 +119,11 @@ class loginWindow:
         else: 
             print(f"Error: {text}")
             self.statusMSG.config(text=f"Error: {text}", bg='red', fg='white', font=('American Typewriter', 18, 'bold'))
+            # Set a timeout to clear the input 
+            self.checkForInputTimer()
        else: 
            self.statusMSG.config(text="Do not leave blank fields", bg='red', fg='white', font=('American Typewriter', 18, 'bold')) 
+           self.checkForInputTimer()
        
            
     def run(self): 

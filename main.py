@@ -111,9 +111,6 @@ class loginWindow:
         res, text = loginUser(self.userValue, self.passValue)
         if(res): 
             self.statusMSG.config(text=f"{text}", bg='green', fg='white', font=('American Typewriter', 18, 'bold'))
-            # For Now We Are Connecting the Login Screen to the Signup Endpoint, 
-            # until i modify the server to allow for login from this companion app
-            #print("User Created")
             self.userEntry.delete(0, tk.END)
             self.passEntry.delete(0, tk.END)
         else: 

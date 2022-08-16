@@ -1,7 +1,8 @@
 import os, sys 
 import requests
 
-url = "http://192.168.68.101:5150/signup"
+url = "http://localhost:5150/signup"
+urlLogin = "http://localhost:5150/loginAPI"
 
 def createUser(username, password):
     data = {
@@ -14,3 +15,17 @@ def createUser(username, password):
         return (True, None)
     else: 
         return (False, res.text)
+
+
+def loginUser(username, password): 
+    data = {
+        'email':username, 
+        'password':password
+    }
+    print(f"Now Sending Login Info...") 
+    res = requests.post(urlLogin, json=data) 
+    if(res.ok): 
+        return (True, res.text)
+    else: 
+        return (False, res.text)
+    

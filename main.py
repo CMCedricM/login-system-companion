@@ -1,6 +1,6 @@
 import os, sys
 import tkinter as tk
-from resources.web import createUser
+from resources.web import createUser, loginUser
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -88,13 +88,14 @@ class loginWindow:
        self.passValue = self.passEntry.get()
    
        if (self.userValue and self.passValue):   
-        self.userEntry.delete(0, tk.END)
-        self.passEntry.delete(0, tk.END)
-        res, text = createUser(self.userValue, self.passValue)
+        res, text = loginUser(self.userValue, self.passValue)
         if(res): 
+            self.statusMSG.config(text=f"{text}", bg='green', fg='white', font=('American Typewriter', 18, 'bold'))
             # For Now We Are Connecting the Login Screen to the Signup Endpoint, 
             # until i modify the server to allow for login from this companion app
-            print("User Created")
+            #print("User Created")
+            self.userEntry.delete(0, tk.END)
+            self.passEntry.delete(0, tk.END)
         else: 
             print(f"Error: {text}")
             self.statusMSG.config(text=f"Error: {text}", bg='red', fg='white', font=('American Typewriter', 18, 'bold'))

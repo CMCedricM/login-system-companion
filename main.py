@@ -20,9 +20,6 @@ class mainWindow(tk.Tk):
         self.MIN_HEIGHT, self.MIN_WIDTH = 372, 256
         
         # Setup Window
-        # self.root = tk.Tk()
-        # self.root.title("System Login")
-        # self.root.resizable(False, False)
         self.title("System Login")
         self.resizable(False, False)
 
@@ -37,8 +34,6 @@ class mainWindow(tk.Tk):
         self.toDoWindow = None 
         # Check Platform Since icons Config are Different
         self.__platformCheck()
-        
-        # super().__init__()
      
             
     def __platformCheck(self):  

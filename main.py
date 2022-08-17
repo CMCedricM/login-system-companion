@@ -6,7 +6,10 @@ FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 WAIT_TIME = 5 * 1000 # Check Every 5 Seconds
 TIMEOUT = 30*1000 # Wait 30 seconds
 
-class loginWindow: 
+
+        
+# This will be the main window, aka login window
+class mainWindow: 
     def __init__(self): 
         # Setup Paths 
         self.ICON = os.path.join(FILE_PATH, "assets", "icon.png")
@@ -71,7 +74,7 @@ class loginWindow:
         
         self.userName.grid(row=2, column=1, columnspan=2, sticky=tk.W)
         self.userEntry.grid(row=2, column=2, sticky=tk.W)
-        
+    
         
         self.passWord = tk.Label( self.root, text="Password:", pady=20, padx=20, anchor='center', font=('American Typewriter', 18))
         self.passEntry = tk.Entry(self.root, bd=2, width=30, font=('American Typewriter', 18), show='*')
@@ -79,7 +82,9 @@ class loginWindow:
         self.passWord.grid(row=3, column=1, sticky=tk.W)
         self.passEntry.grid(row=3, column=2, sticky=tk.W)
         tk.Checkbutton(self.root, text="Show Password", font=('American Typewriter', 18),  command=self.showPass).grid(row=4, column=2, sticky=tk.W)
-       
+        
+        # Attempt Login on "Enter" Keypress
+        self.passEntry.bind("<Return>", self.attemptLogin)
         
         tk.Button(self.root, text="Login", pady=20, padx=20, height=1, width=8, command=self.attemptLogin, anchor='center').grid(row=5, column=2, columnspan=2)
     
@@ -103,7 +108,7 @@ class loginWindow:
         
             
         
-    def attemptLogin(self):
+    def attemptLogin(self, e=None):
        self.userValue = self.userEntry.get()
        self.passValue = self.passEntry.get()
    
@@ -114,7 +119,6 @@ class loginWindow:
             self.userEntry.delete(0, tk.END)
             self.passEntry.delete(0, tk.END)
         else: 
-            print(f"Error: {text}")
             self.statusMSG.config(text=f"Error: {text}", bg='red', fg='white', font=('American Typewriter', 18, 'bold'))
             # Set a timeout to clear the input 
             self.checkForInputTimer()
@@ -127,8 +131,7 @@ class loginWindow:
          self.createWindow()
          self.root.mainloop()
    
-   
          
 if __name__=='__main__':
-    app = loginWindow() 
+    app = mainWindow() 
     app.run()

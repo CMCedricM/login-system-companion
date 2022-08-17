@@ -9,7 +9,6 @@ def createUser(username, password):
         "email": username,
         "password": password
     }
-    print(f"Now Sending {data}")
     res = requests.post(url, json=data)
     if(res.ok): 
         return (True, None)
@@ -22,7 +21,7 @@ def loginUser(username, password):
         'email':username, 
         'password':password
     }
-    print(f"Now Sending Login Info...") 
+    
     res = requests.post(urlLogin, json=data) 
     if(res.ok): 
         return (True, res.text)
